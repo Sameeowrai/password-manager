@@ -51,6 +51,59 @@ public:
         }
     }
 
+    void ListPasswords() {
+        int counter = -1;
+        Menu<int> passwordsMenu("Passwords List", {}, 0.01,20);
+        
+        for (const Password& password : passwords) {
+            counter++;
+            passwordsMenu.Insert({to_string(counter+1)+". "+password.name, defaultColor, counter});
+        }
+
+        passwordsMenu.Insert({"<-Back", "\e[0;35m", -1});
+
+        while (true) {
+            int index = passwordsMenu.Get();
+            if (index != -1) {
+                while (true) {
+                    const Password& password = passwords[index];
+                    cls();
+
+                    string info = "-> Name: " + password.name + "\n-> Password: " + password.password;
+                    Menu<int> passwordMenu(info, {
+                        {"Edit Name", defaultColor, 0},
+                        {"Edit Password", defaultColor, 1},
+                        {"Remove", defaultColor, 2},
+                        {"<-Back", "\e[0;35m", -1}
+                    });
+
+                    int op = passwordMenu.Get();
+                    switch (op) {
+                        case 0: {
+                            Input<string> nameInput("Enter new name:", 0.05);
+                            passwords[index].name = nameInput.Read();
+                            break;
+                        }
+                        case 1: {
+                            Input<string> passwordInput("Enter new password:", 0.05);
+                            passwords[index].password = passwordInput.ReadSecret('*'); // Update password
+                            break;
+                        }
+                        case 2: {
+                            passwords.erase(passwords.begin() + index);
+                            Save();
+                            return;
+                        }
+                        default:
+                            break;
+                    }
+                    if (op == -1) break;
+                }
+            } else {
+                break;
+            }
+        }
+    }
 };
 
 int main() {
