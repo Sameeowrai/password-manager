@@ -40,6 +40,13 @@ public:
         print("Passwords Loaded!", 0.05);
     }
 
+    void Save() {
+        ofstream file("password.lock");
+        for (const Password& password : passwords) {
+            file << password.name << ":" << password.password << endl;
+        }
+    }
+
 };
 
 int main() {
