@@ -124,7 +124,7 @@ int main() {
         switch (op) {
             case 0: {
                 if (yesnoMenu.Get() == 1) break;
-Password password;
+                Password password;
                 Input<string> nameInput("-> Enter name: ", 0.05);
                 Input<string> passwordInput("-> Enter password: ", 0.05);
                 password.name = nameInput.Read();
@@ -134,6 +134,7 @@ Password password;
                 break;
             }
             case 1:
+                pm.ListPasswords();
                 break;
             case 2: {
                 if (yesnoMenu.Get() == 0) exit(0);
