@@ -35,10 +35,10 @@ public:
         string line;
         print("Loading Passwords", 0.05);
         while (getline(file, line)) {
-            int split = line.find(":");
+            int split = line.find("\u2192");
             Password password;
             password.name = line.substr(0, split);
-            password.password = line.substr(split + 1);
+            password.password = line.substr(split + 3);
             passwords.push_back(password);
         }
         print("Passwords Loaded!", 0.05);
@@ -47,7 +47,7 @@ public:
     void Save() {
         ofstream file("password.lock");
         for (const Password& password : passwords) {
-            file << password.name << ":" << password.password << endl;
+            file << password.name << "\u2192" << password.password << endl;
         }
     }
 
