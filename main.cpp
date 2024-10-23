@@ -3,6 +3,10 @@
 
 using namespace std;
 
+struct Password {
+    string name;
+    string password;
+};
 
 int main() {
     Menu<int> menu("Home Menu", {
