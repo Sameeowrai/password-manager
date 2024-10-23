@@ -25,6 +25,10 @@ public:
         }
     }
 
+    void Add(const Password& password) {
+        passwords.push_back(password);
+    }
+
     void Load() {
         passwords.clear();
         ifstream file("password.lock");
