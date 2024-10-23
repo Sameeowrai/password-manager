@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "clikit/clikit.hpp"
+#include "clikit.hpp"
 
 using namespace std;
 
