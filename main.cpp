@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <vector>
 #include "clikit/clikit.hpp"
 
 using namespace std;
@@ -6,6 +8,38 @@ using namespace std;
 struct Password {
     string name;
     string password;
+};
+
+class PasswordManager {
+private:
+    vector<Password> passwords;
+
+public:
+    PasswordManager() {
+        ifstream file("password.lock");
+        if (!file.is_open()) {
+            ofstream createFile("password.lock");
+            createFile.close();
+        } else {
+            Load();
+        }
+    }
+
+    void Load() {
+        passwords.clear();
+        ifstream file("password.lock");
+        string line;
+        print("Loading Passwords", 0.05);
+        while (getline(file, line)) {
+            int split = line.find(":");
+            Password password;
+            password.name = line.substr(0, split);
+            password.password = line.substr(split + 1);
+            passwords.push_back(password);
+        }
+        print("Passwords Loaded!", 0.05);
+    }
+
 };
 
 int main() {
