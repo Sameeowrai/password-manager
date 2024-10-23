@@ -54,6 +54,7 @@ public:
 };
 
 int main() {
+    PasswordManager pm;
     Menu<int> menu("Home Menu", {
         {"Add new password", "\e[0;37m", 0},
         {"List of passwords", "\e[0;37m", 1},
@@ -70,6 +71,13 @@ int main() {
         switch (op) {
             case 0: {
                 if (yesnoMenu.Get() == 1) break;
+Password password;
+                Input<string> nameInput("-> Enter name: ", 0.05);
+                Input<string> passwordInput("-> Enter password: ", 0.05);
+                password.name = nameInput.Read();
+                password.password = passwordInput.ReadSecret('*');
+                pm.Add(password);
+                pm.Save();
                 break;
             }
             case 1:
